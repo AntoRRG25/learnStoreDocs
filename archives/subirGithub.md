@@ -149,3 +149,41 @@ git config --unset user.name
 Para tu caso con dos cuentas de GitHub, es mejor usar configuraciones locales en los repositorios de tu segunda cuenta. Así mantienes tu configuración global para tu cuenta principal, y solo configuras específicamente los repositorios que quieres asociar con tu segunda cuenta.
 
 Esto asegura que cada commit sea creado con la identidad correcta, independientemente de qué token o método de autenticación estés usando para subir los cambios.
+<hr>
+Error en credenciales:
+
+Este error indica un problema de permisos. Git está intentando usar las credenciales de tu primera cuenta (`antorrg`) para acceder a un repositorio que pertenece a tu segunda cuenta (`AntoRRG25`).
+
+Para solucionarlo, necesitas asegurarte de que estás autenticándote con el token de acceso personal correcto. Sigue estos pasos:
+
+1. **Cambia la URL remota para incluir tu token**:
+   ```bash
+   git remote set-url origin https://[TU-TOKEN]@github.com/AntoRRG25/learnStoreDocs.git
+   ```
+   Reemplaza `[TU-TOKEN]` con el token de acceso personal que generaste para tu cuenta `AntoRRG25`.
+
+2. **Verifica que el cambio se haya aplicado**:
+   ```bash
+   git remote -v
+   ```
+   Deberías ver la URL actualizada (con el token).
+
+3. **Intenta hacer push de nuevo**:
+   ```bash
+   git push -u origin main
+   ```
+
+Si el problema persiste, también puedes:
+
+1. **Limpiar las credenciales almacenadas**:
+   ```bash
+   git credential reject host=github.com
+   ```
+
+2. **Asegurarte de que tu configuración local de usuario es correcta**:
+   ```bash
+   git config user.name "Tu nombre para cuenta AntoRRG25"
+   git config user.email "tu_email_de_AntoRRG25@ejemplo.com"
+   ```
+
+Esto debería resolver el problema de permisos ya que estarás autenticándote explícitamente con el token de tu segunda cuenta.
